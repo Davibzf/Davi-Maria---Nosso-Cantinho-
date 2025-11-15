@@ -116,7 +116,7 @@ nextBtn.addEventListener('click', () => {
 // Atualizar contador em tempo real
 function updateCounter() {
     // Data de início do relacionamento (substitua pela sua data)
-    const startDate = new Date('2023-07-20T00:00:00');
+    const startDate = new Date('2025-05-09T00:00:00');
     
     function update() {
         const now = new Date();
