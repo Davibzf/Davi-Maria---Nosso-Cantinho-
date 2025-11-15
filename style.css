@@ -124,7 +124,8 @@ body {
 .carousel-indicators {
     display: flex;
     justify-content: center;
-    margin-top: 25px;
+    margin-top: 5px;
+    margin-bottom: 10px
 }
 
 .indicator {
