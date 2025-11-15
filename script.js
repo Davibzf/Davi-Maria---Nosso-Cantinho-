@@ -17,7 +17,7 @@ const carouselData = [
         caption: "Meu coração bate no ritmo do seu nome."
     },
     {
-        image: "https://imagizer.imageshack.com/img923/9226/gEPXeO.png",
+        image: "https://imagizer.imageshack.com/img924/7396/MueOTU.jpg",
         caption: "Ao seu lado, cada momento é especial."
     }
 ];
