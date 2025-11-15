@@ -108,8 +108,9 @@ body {
 }
 
 .carousel-btn:hover {
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.2); /* ← Fundo sutil no hover */
     transform: translateY(-50%) scale(1.1);
+    color: #ffafbd; /* ← Cor diferente no hover */
 }
 
 .prev {
