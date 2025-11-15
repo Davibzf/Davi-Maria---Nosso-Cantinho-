@@ -129,7 +129,7 @@ function updateCounter() {
         const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((diff % (1000 * 60)) / 1000);
         
-        counter.textContent = `${years} anos, ${months} meses, ${days} dias, ${hours} horas, ${minutes} minutos e ${seconds} segundos`;
+        counter.textContent = `${months} meses, ${days} dias`;
     }
     
     update();
