@@ -1,19 +1,19 @@
 // Configuração do carrossel
 const carouselData = [
     {
-        image: "https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+        image: "https://imagizer.imageshack.com/img922/8818/cd1OAK.jpg",
         caption: "Em cada olhar, encontro o amor que me completa."
     },
     {
-        image: "https://images.unsplash.com/photo-1529254479751-fbacb4c3b7c8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+        image: "https://imagizer.imageshack.com/img923/6709/5gh5So.png",
         caption: "Nosso amor é a melhor história que já vivi."
     },
     {
-        image: "https://images.unsplash.com/photo-1511895426328-dc8714191300?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+        image: "https://imagizer.imageshack.com/img922/6208/HVI2eI.png",
         caption: "Você é o sonho que nunca quis acordar."
     },
     {
-        image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+        image: "https://imagizer.imageshack.com/img924/8122/Ox0Mv2.jpg",
         caption: "Meu coração bate no ritmo do seu nome."
     },
     {
