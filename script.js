@@ -1,204 +1,214 @@
-// Data de início do relacionamento: 09/05/2025 às 19:45
-const startDate = new Date('2025-05-09T19:45:00');
+// Configuração do carrossel
+const carouselData = [
+    {
+        image: "https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+        caption: "Em cada olhar, encontro o amor que me completa."
+    },
+    {
+        image: "https://images.unsplash.com/photo-1529254479751-fbacb4c3b7c8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+        caption: "Nosso amor é a melhor história que já vivi."
+    },
+    {
+        image: "https://images.unsplash.com/photo-1511895426328-dc8714191300?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+        caption: "Você é o sonho que nunca quis acordar."
+    },
+    {
+        image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+        caption: "Meu coração bate no ritmo do seu nome."
+    },
+    {
+        image: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+        caption: "Ao seu lado, cada momento é especial."
+    }
+];
 
 // Elementos DOM
-const counterElement = document.getElementById('counter');
 const carousel = document.getElementById('carousel');
-const carouselDots = document.getElementById('carousel-dots');
-const backgroundHearts = document.getElementById('background-hearts');
-const addPhotoBtn = document.getElementById('add-photo-btn');
-const prevBtn = document.getElementById('prev-btn');
-const nextBtn = document.getElementById('next-btn');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const indicators = document.getElementById('indicators');
+const counter = document.getElementById('counter');
+const backgroundMusic = document.getElementById('backgroundMusic');
+const playBtn = document.getElementById('playBtn');
+const pauseBtn = document.getElementById('pauseBtn');
+const volumeUpBtn = document.getElementById('volumeUpBtn');
+const volumeDownBtn = document.getElementById('volumeDownBtn');
 
-let currentSlide = 0;
-let photos = [];
+let currentIndex = 0;
 let carouselInterval;
 
-// Atualizar contador
-function updateCounter() {
-    const now = new Date();
-    const diff = startDate - now;
+// Inicializar carrossel
+function initCarousel() {
+    carouselData.forEach((item, index) => {
+        // Criar item do carrossel
+        const carouselItem = document.createElement('div');
+        carouselItem.className = 'carousel-item';
+        
+        const img = document.createElement('img');
+        img.src = item.image;
+        img.alt = `Imagem ${index + 1}`;
+        
+        const caption = document.createElement('div');
+        caption.className = 'carousel-caption';
+        caption.innerHTML = `<p>${item.caption}</p>`;
+        
+        carouselItem.appendChild(img);
+        carouselItem.appendChild(caption);
+        carousel.appendChild(carouselItem);
+        
+        // Criar indicadores
+        const indicator = document.createElement('div');
+        indicator.className = `indicator ${index === 0 ? 'active' : ''}`;
+        indicator.dataset.index = index;
+        indicator.addEventListener('click', () => goToSlide(index));
+        indicators.appendChild(indicator);
+    });
     
-    if (diff <= 0) {
-        const timePassed = now - startDate;
-        showTimePassed(timePassed);
-        return;
-    }
-    
-    showCountdown(diff);
-}
-
-function showCountdown(diff) {
-    const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30.44));
-    const days = Math.floor((diff % (1000 * 60 * 60 * 24 * 30.44)) / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    
-    counterElement.textContent = 
-        `Faltam ${months} meses, ${days} dias, ${hours} horas e ${minutes} minutos para nosso amor começar!`;
-    counterElement.style.color = '#ff69b4';
-}
-
-function showTimePassed(diff) {
-    const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
-    const months = Math.floor((diff % (1000 * 60 * 60 * 24 * 365.25)) / (1000 * 60 * 60 * 24 * 30.44));
-    const days = Math.floor((diff % (1000 * 60 * 60 * 24 * 30.44)) / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    
-    if (years > 0) {
-        counterElement.textContent = 
-            `${years} anos, ${months} meses, ${days} dias, ${hours} horas e ${minutes} minutos`;
-    } else {
-        counterElement.textContent = 
-            `${months} meses, ${days} dias, ${hours} horas e ${minutes} minutos`;
-    }
-    counterElement.style.color = '#ff69b4';
-}
-
-// Funções do Carrossel
-function nextSlide() {
-    if (photos.length === 0) return;
-    currentSlide = (currentSlide + 1) % photos.length;
     updateCarousel();
 }
 
-function prevSlide() {
-    if (photos.length === 0) return;
-    currentSlide = (currentSlide - 1 + photos.length) % photos.length;
-    updateCarousel();
-}
-
-function goToSlide(index) {
-    if (index >= 0 && index < photos.length) {
-        currentSlide = index;
-        updateCarousel();
-    }
-}
-
+// Atualizar carrossel
 function updateCarousel() {
-    if (photos.length === 0) return;
+    carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
     
-    carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
-    
-    const dots = document.querySelectorAll('.dot');
-    dots.forEach((dot, index) => {
-        dot.classList.toggle('active', index === currentSlide);
+    // Atualizar indicadores
+    document.querySelectorAll('.indicator').forEach((indicator, index) => {
+        indicator.classList.toggle('active', index === currentIndex);
     });
 }
 
-function addPhotoToCarousel() {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'image/*';
-    input.onchange = function(e) {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                photos.push(event.target.result);
-                updateCarouselDisplay();
-            };
-            reader.readAsDataURL(file);
-        }
-    };
-    input.click();
-}
-
-function updateCarouselDisplay() {
-    carousel.innerHTML = '';
-    carouselDots.innerHTML = '';
-    
-    photos.forEach((photo, index) => {
-        const slide = document.createElement('div');
-        slide.className = 'carousel-item';
-        slide.innerHTML = `<img src="${photo}" alt="Nossa foto ${index + 1}">`;
-        carousel.appendChild(slide);
-        
-        const dot = document.createElement('div');
-        dot.className = `dot ${index === 0 ? 'active' : ''}`;
-        dot.setAttribute('data-index', index);
-        dot.addEventListener('click', () => goToSlide(index));
-        carouselDots.appendChild(dot);
-    });
-    
-    if (photos.length === 0) {
-        const initialSlide = document.createElement('div');
-        initialSlide.className = 'carousel-item';
-        initialSlide.innerHTML = `
-            <i class="fas fa-heart"></i>
-            <p>Clique no botão para adicionar fotos especiais</p>
-            <button class="add-photo-btn" id="add-photo-initial-btn">
-                <i class="fas fa-plus"></i> Adicionar Foto
-            </button>
-        `;
-        carousel.appendChild(initialSlide);
-        
-        const dot = document.createElement('div');
-        dot.className = 'dot active';
-        dot.setAttribute('data-index', 0);
-        dot.addEventListener('click', () => goToSlide(0));
-        carouselDots.appendChild(dot);
-
-        document.getElementById('add-photo-initial-btn').addEventListener('click', addPhotoToCarousel);
-    }
-    
-    currentSlide = 0;
+// Ir para slide específico
+function goToSlide(index) {
+    currentIndex = index;
     updateCarousel();
-    startCarouselAutoAdvance();
+    resetCarouselInterval();
 }
 
-function startCarouselAutoAdvance() {
-    if (carouselInterval) {
-        clearInterval(carouselInterval);
+// Próximo slide
+function nextSlide() {
+    currentIndex = (currentIndex + 1) % carouselData.length;
+    updateCarousel();
+}
+
+// Slide anterior
+function prevSlide() {
+    currentIndex = (currentIndex - 1 + carouselData.length) % carouselData.length;
+    updateCarousel();
+}
+
+// Reiniciar intervalo do carrossel automático
+function resetCarouselInterval() {
+    clearInterval(carouselInterval);
+    carouselInterval = setInterval(nextSlide, 5000);
+}
+
+// Event listeners para navegação do carrossel
+prevBtn.addEventListener('click', () => {
+    prevSlide();
+    resetCarouselInterval();
+});
+
+nextBtn.addEventListener('click', () => {
+    nextSlide();
+    resetCarouselInterval();
+});
+
+// Atualizar contador em tempo real
+function updateCounter() {
+    // Data de início do relacionamento (substitua pela sua data)
+    const startDate = new Date('2023-07-20T00:00:00');
+    
+    function update() {
+        const now = new Date();
+        const diff = now - startDate;
+        
+        const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365));
+        const months = Math.floor((diff % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24 * 30));
+        const days = Math.floor((diff % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        
+        counter.textContent = `${years} anos, ${months} meses, ${days} dias, ${hours} horas, ${minutes} minutos e ${seconds} segundos`;
     }
     
-    if (photos.length > 1) {
-        carouselInterval = setInterval(() => {
-            nextSlide();
-        }, 5000);
-    }
+    update();
+    setInterval(update, 1000);
 }
 
-// Criar corações flutuantes
-function createFloatingHearts() {
-    const heartsCount = 25;
+// Efeito de emojis caindo
+function createFallingEmoji() {
+    const emojis = ['❤️', '💕', '😍', '🥰', '💖', '💘', '💝', '💞', '💓', '💗'];
+    const emoji = document.createElement('div');
+    emoji.className = 'emoji';
+    emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
     
-    for (let i = 0; i < heartsCount; i++) {
-        const heart = document.createElement('div');
-        heart.classList.add('heart');
-        heart.innerHTML = '❤️';
-        
-        const left = Math.random() * 100;
-        const top = Math.random() * 100;
-        const delay = Math.random() * 5;
-        const size = Math.random() * 1.5 + 0.5;
-        const duration = Math.random() * 3 + 5;
-        
-        heart.style.left = `${left}%`;
-        heart.style.top = `${top}%`;
-        heart.style.animationDelay = `${delay}s`;
-        heart.style.fontSize = `${size}rem`;
-        heart.style.animationDuration = `${duration}s`;
-        
-        backgroundHearts.appendChild(heart);
-    }
+    // Posição aleatória
+    emoji.style.left = `${Math.random() * 100}vw`;
+    emoji.style.top = '-50px';
+    
+    // Duração e tamanho aleatórios
+    const duration = 5 + Math.random() * 5;
+    const size = 1 + Math.random() * 2;
+    emoji.style.fontSize = `${size}rem`;
+    emoji.style.animationDuration = `${duration}s`;
+    
+    document.body.appendChild(emoji);
+    
+    // Remover após a animação
+    setTimeout(() => {
+        if (emoji.parentNode) {
+            emoji.remove();
+        }
+    }, duration * 1000);
 }
 
-// Inicialização
-function init() {
+// Controles de áudio
+playBtn.addEventListener('click', () => {
+    backgroundMusic.play().catch(e => {
+        console.log("Reprodução automática bloqueada pelo navegador. Clique para reproduzir.");
+        playBtn.textContent = "▶️ Clique para reproduzir";
+    });
+});
+
+pauseBtn.addEventListener('click', () => {
+    backgroundMusic.pause();
+});
+
+volumeUpBtn.addEventListener('click', () => {
+    if (backgroundMusic.volume < 1) {
+        backgroundMusic.volume = Math.min(1, backgroundMusic.volume + 0.1);
+    }
+});
+
+volumeDownBtn.addEventListener('click', () => {
+    if (backgroundMusic.volume > 0) {
+        backgroundMusic.volume = Math.max(0, backgroundMusic.volume - 0.1);
+    }
+});
+
+// Inicializar a página
+window.addEventListener('DOMContentLoaded', () => {
+    initCarousel();
     updateCounter();
-    createFloatingHearts();
-    updateCarouselDisplay();
+    
+    // Iniciar carrossel automático
+    carouselInterval = setInterval(nextSlide, 5000);
+    
+    // Criar emojis caindo em intervalos regulares
+    setInterval(createFallingEmoji, 500);
+    
+    // Tentar reproduzir música automaticamente (pode ser bloqueado pelos navegadores)
+    backgroundMusic.play().catch(e => {
+        console.log("Reprodução automática bloqueada pelo navegador. Clique para reproduzir.");
+    });
+});
 
-    // Event Listeners
-    prevBtn.addEventListener('click', prevSlide);
-    nextBtn.addEventListener('click', nextSlide);
-    addPhotoBtn.addEventListener('click', addPhotoToCarousel);
-
-    // Atualizar contador a cada minuto
-    setInterval(updateCounter, 60000);
-}
-
-// Iniciar a aplicação quando o DOM estiver carregado
-document.addEventListener('DOMContentLoaded', init);
+// Pausar carrossel quando a página não estiver visível
+document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+        clearInterval(carouselInterval);
+    } else {
+        resetCarouselInterval();
+    }
+});
