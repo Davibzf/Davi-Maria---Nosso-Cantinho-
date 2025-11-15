@@ -3,59 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aliança Eterna - Nosso Amor</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Você é tudo pra mim</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="background-hearts" id="background-hearts"></div>
-    
     <div class="container">
         <div class="header">
-            <h1>Você é Tudo Para Mim</h1>
-            <div class="counter" id="counter">
-                Carregando...
-            </div>
-        </div>
-        
-        <!-- Carrossel Moderno -->
-        <div class="carousel-container">
-            <div class="carousel" id="carousel">
-                <div class="carousel-item">
-                    <i class="fas fa-heart"></i>
-                    <p>Clique no botão para adicionar fotos especiais</p>
-                    <button class="add-photo-btn" id="add-photo-btn">
-                        <i class="fas fa-plus"></i> Adicionar Foto
-                    </button>
-                </div>
-            </div>
-            <button class="carousel-btn prev" id="prev-btn">&#10094;</button>
-            <button class="carousel-btn next" id="next-btn">&#10095;</button>
-            <div class="carousel-dots" id="carousel-dots">
-                <div class="dot active" data-index="0"></div>
-            </div>
-        </div>
-        
-        <div class="message">
-            <p>Não tenha dúvidas, meu amor. Eu quero você para mim em qualquer lugar, em qualquer situação. Estarei com você e farei de tudo para te amar.</p>
-            
-            <p>Nosso amor é um refúgio, um porto seguro onde encontramos alívio e força. Queremos estar grudados um no outro de tanta paixão. E isso é amor verdadeiro.</p>
-            
-            <p>Às vezes, o amor é desafiador. Às vezes é difícil. Mas é essa mistura de emoções que torna tudo mais valioso. Os momentos doces são ainda mais doces quando superamos as dificuldades juntos.</p>
-            
-            <p>Estar com você é assim. E quando estivermos juntos, poderemos experimentar todas essas emoções de uma forma ainda mais intensa.</p>
-            
-            <p>Eu te amo mais do que tudo: minha princesa, minha vida, para sempre. É tudo o que te peço: seja minha esposa até o fim!</p>
-            
-            <div class="signature">Com Todo Meu Amor</div>
+            <h1>Você é tudo pra mim há:</h1>
+            <div class="counter" id="counter">2 anos, 3 meses, 26 dias, 6 horas, 14 minutos e 28 segundos</div>
         </div>
 
-        <!-- Elemento decorativo no lugar do player -->
-        <div class="romantic-quote">
-            <i class="fas fa-heart"></i>
-            <p>"O amor não se vê com os olhos, mas com o coração."</p>
+        <div class="carousel-container">
+            <div class="carousel" id="carousel">
+                <!-- As imagens serão adicionadas via JavaScript -->
+            </div>
+            <button class="carousel-btn prev" id="prevBtn">&#10094;</button>
+            <button class="carousel-btn next" id="nextBtn">&#10095;</button>
+            <div class="carousel-indicators" id="indicators">
+                <!-- Os indicadores serão adicionados via JavaScript -->
+            </div>
+        </div>
+
+        <div class="message">
+            <p>Não tenha olhados mais para o novo talento certeza de se lhe sair. Ela queria você para mim, em qualquer lugar, em qualquer situação. Estaria com você e tem de tudo para te casar.</p>
+            <p>Quem está necessariamente tentando que a Sabrina vai atrás, ou seja não entender Sabrina, sem outro direito, acontecer. Esse processo tem o curso de uma opção, bem que durante a fuga eu amo de contar.</p>
+            <p>Eu sei que, às vezes, é difícil, às vezes quando eu estamos no momento, porque, excelente – e sem manter as exceções, é a peça coragem da forma maior e facilmente apenas como a mim devido ao meio lado para tocar.</p>
+            <p>Não naturalmente somos e tuve momentos, e ele ficamos sempre tens a fazer muito, não havendo nação. É um cor você, assim.</p>
+            <p>E quando faço a você, poderá precisar todas essas exceções da uma forma ainda mais intensa. E tal é sim forte são que tudo, minha garotada, algo simples, para sempre. E tudo é que te pegar logo muito espaço até o fim.</p>
+        </div>
+
+        <div class="audio-controls">
+            <button id="playBtn">▶️ Reproduzir Música</button>
+            <button id="pauseBtn">⏸️ Pausar</button>
+            <button id="volumeUpBtn">🔊 Aumentar</button>
+            <button id="volumeDownBtn">🔉 Diminuir</button>
         </div>
     </div>
+
+    <audio id="backgroundMusic" loop>
+        <!-- Substitua pelo caminho da sua música -->
+        <source src="https://assets.mixkit.co/music/preview/mixkit-serene-view-443.mp3" type="audio/mpeg">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
 
     <script src="script.js"></script>
 </body>
